@@ -9,7 +9,7 @@ const TimeSlot = props => {
 
   const handleClick = e => {
     e.preventDefault();
-    props.openTimeSlot(id);
+    props.openModal(id);
   };
 
   return (
@@ -24,7 +24,7 @@ const TimeSlot = props => {
 }
 
 const mapDispatchToProps = {
-  openTimeSlot: actions.openTimeSlot,
+  openModal: actions.openModal,
 };
 
 export default connect(null, mapDispatchToProps)(TimeSlot);

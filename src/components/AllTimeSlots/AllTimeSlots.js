@@ -1,30 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import './AllTimeSlots.css';
+
 import TimeSlot from '../TimeSlot/TimeSlot';
-import AppointmentForm from '../AppointmentForm/AppointmentForm';
+import MeetingModal from '../MeetingModal/MeetingModal';
 
-// Does this need to be a class???
-class AllTimeSlots extends Component {
+const AllTimeSlots = props => {
   
-  render(){
-    const { allTimeSlots } = this.props;
+  const { allTimeSlots, isModalOpen } = props;
 
-    const timeSlotItems = allTimeSlots.map(slot => {
-      return <TimeSlot slot={slot} key={slot.id}/>
-    });
+  const timeSlotItems = allTimeSlots.map(slot => {
+    return <TimeSlot slot={slot} key={slot.id}/>
+  });
 
-    return (
-      <React.Fragment>
-        { timeSlotItems }
-        <AppointmentForm />
-      </React.Fragment>
-    )
-  }
+  return (
+    <div className="AllTimeSlots">
+      {timeSlotItems}
+      {isModalOpen && <MeetingModal /> }
+    </div>
+  )
 };
 
 const mapStateToProps = state => {
   return {
     allTimeSlots: state.timeSlots,
+    isModalOpen: state.isModalOpen,
   };
 };
 

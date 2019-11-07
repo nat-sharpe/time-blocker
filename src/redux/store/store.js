@@ -4,7 +4,7 @@ import timeSlots from './time-slots-data';
 
 const initialState = {
   timeSlots,
-  appointments: {
+  meetings: {
     "10am": {
       name: "Nat Sharpe",
       phone: "(555) 715-7500",
@@ -16,7 +16,7 @@ const initialState = {
       time: "4:00 p.m. - 5:00 p.m.",
     }
   },
-  modalOpen: false,
+  isModalOpen: false,
   selectedId: "",
 }
 

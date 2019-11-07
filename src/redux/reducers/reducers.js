@@ -1,12 +1,17 @@
-import { OPEN_TIME_SLOT } from '../actions/actions';
+import { OPEN_MODAL, CLOSE_MODAL } from '../actions/actions';
 
 const rootReducer = (state = {}, action) => {
   switch(action.type) {
-    case OPEN_TIME_SLOT:
+    case OPEN_MODAL:
       return {
         ...state,
-        modalOpen: true,
+        isModalOpen: true,
         selectedId: action.id,
+      };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        isModalOpen: false,
       };
     default:
       return state;
