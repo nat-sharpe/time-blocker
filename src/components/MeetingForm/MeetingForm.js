@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from '../../redux/actions/actions';
+import { formatPhoneNumber } from '../../helpers/helpers'
 import './MeetingForm.css';
 
 class MeetingForm extends Component {
@@ -18,33 +19,6 @@ class MeetingForm extends Component {
     };
   };
 
-  formatPhoneNumber = phone => {
-    const cleaned = ('' + phone).replace(/\D/g, '');
-    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-    if (match) {
-      return '(' + match[1] + ') ' + match[2] + '-' + match[3]
-    }
-    return null
-  }
-
-  validateForm = (name, phone) => {
-    const alertMessage = "Please enter a ";
-    if (name && phone) {
-      const formattedPhone = this.formatPhoneNumber(phone);
-      if (formattedPhone) {
-        return formattedPhone;
-      }
-      alert("Phone number is invalid");
-      return "";
-    }
-    const phoneError = !phone ? "phone number" : "";
-    const nameError = !name ? "name" : "";
-    const bothError = !name && !phone ? " and " : "";
-
-    alert(alertMessage + nameError + bothError + phoneError)
-    return "";
-  };
-
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -54,18 +28,35 @@ class MeetingForm extends Component {
     this.props.closeModal();
   };
 
+  handleClear = event => {
+    event.preventDefault();
+    this.setState({
+      name: "",
+      phone: "",
+    })
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     const { name, phone, id } = this.state;
-    const validPhone = this.validateForm(name, phone);
-    if (validPhone) {
-      const meeting = { name, phone: validPhone }
-      this.props.submitMeeting(meeting, id);
-    };
+    if (!name && !phone) {
+      this.props.cancelMeeting(id);
+    } else if (!name) {
+      alert("Please enter a name");
+    } else {
+      const validPhone = formatPhoneNumber(phone);
+      if (!validPhone) {
+        alert("Please enter a valid phone number");
+      } else {
+        const meeting = { name, phone: validPhone }
+        this.props.submitMeeting(meeting, id);
+      }
+    }
   };
 
   render() {
     const { name, phone, time } = this.state;
+    console.log(this.state);
     return (
       <React.Fragment>
         <div className="close-button-box">
@@ -88,6 +79,7 @@ class MeetingForm extends Component {
             />
           </div>
           <button type="submit" onClick={this.handleSubmit}>Save</button>
+          <button onClick={this.handleClear}>Clear</button>
         </form>
       </React.Fragment>
     )
@@ -104,6 +96,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   closeModal: actions.closeModal,
   submitMeeting: actions.submitMeeting,
+  cancelMeeting: actions.cancelMeeting,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingForm);

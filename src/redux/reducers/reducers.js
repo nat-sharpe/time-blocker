@@ -1,4 +1,4 @@
-import { OPEN_MODAL, CLOSE_MODAL, SUBMIT_MEETING } from '../actions/actions';
+import { OPEN_MODAL, CLOSE_MODAL, SUBMIT_MEETING, CANCEL_MEETING } from '../actions/actions';
 
 const rootReducer = (state = {}, action) => {
   switch(action.type) {
@@ -14,13 +14,22 @@ const rootReducer = (state = {}, action) => {
         isModalOpen: false,
       };
     case SUBMIT_MEETING:
-    const { meeting, id } = action;
       return {
         ...state,
         meetings: {
           ...state.meetings,
-          [id]: meeting,
+          [action.id]: action.meeting,
         },
+        isModalOpen: false,
+      };
+    case CANCEL_MEETING:
+      const newMeetings = {
+        ...state.meetings,
+      };
+      delete newMeetings[action.id];
+      return {
+        ...state,
+        meetings: newMeetings,
         isModalOpen: false,
       };
     default:
