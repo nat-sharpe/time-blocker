@@ -20,7 +20,6 @@ const rootReducer = (state = {}, action) => {
           ...state.meetings,
           [action.id]: action.meeting,
         },
-        isModalOpen: false,
       };
     case CANCEL_MEETING:
       const newMeetings = {
@@ -30,7 +29,6 @@ const rootReducer = (state = {}, action) => {
       return {
         ...state,
         meetings: newMeetings,
-        isModalOpen: false,
       };
     default:
       return state;

@@ -19,8 +19,14 @@ class MeetingForm extends Component {
     };
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleNameChange = event => {
+    this.setState({ name: event.target.value });
+  };
+
+  handlePhoneChange = event => {
+    const validPhone = formatPhoneNumber(event.target.value);
+    const phone = validPhone ? validPhone : event.target.value;
+    this.setState({ phone });
   };
 
   handleClose = event => {
@@ -41,6 +47,7 @@ class MeetingForm extends Component {
     const { name, phone, id } = this.state;
     if (!name && !phone) {
       this.props.cancelMeeting(id);
+      this.props.closeModal();
     } else if (!name) {
       alert("Please enter a name");
     } else {
@@ -50,13 +57,13 @@ class MeetingForm extends Component {
       } else {
         const meeting = { name, phone: validPhone }
         this.props.submitMeeting(meeting, id);
+        this.props.closeModal();
       }
     }
   };
 
   render() {
     const { name, phone, time } = this.state;
-    console.log(this.state);
     return (
       <React.Fragment>
         <div className="close-button-box">
@@ -64,19 +71,13 @@ class MeetingForm extends Component {
         </div>
         <h3>{time}</h3>
         <form>
-          <div>Name: </div>
+          <label>Name: </label>
           <div>
-            <input type="text" name="name" value={name} 
-              onChange={this.handleChange}
-              required
-            />
+            <input type="text" value={name} onChange={this.handleNameChange} />
           </div>
-          <div>Phone: </div>
+          <label>Phone: </label>
           <div>
-            <input type="tel" name="phone" value={phone}
-              onChange={this.handleChange}
-              required
-            />
+            <input type="tel" value={phone} onChange={this.handlePhoneChange} />
           </div>
           <button type="submit" onClick={this.handleSubmit}>Save</button>
           <button onClick={this.handleClear}>Clear</button>

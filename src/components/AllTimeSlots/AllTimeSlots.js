@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './AllTimeSlots.css';
 
 import TimeSlot from '../TimeSlot/TimeSlot';
 import MeetingModal from '../MeetingModal/MeetingModal';
 
-const AllTimeSlots = props => {
+class AllTimeSlots extends Component {
   
-  const { allTimeSlots, isModalOpen } = props;
-  const timeSlotItems = allTimeSlots.map(slot => <TimeSlot slot={slot} key={slot.id}/>);
+  buildTimeSlots = (timeSlots) => {
+    return timeSlots.map(slot => <TimeSlot slot={slot} key={slot.id}/>)
+  };
 
-  return (
-    <div className="AllTimeSlots">
-      {timeSlotItems}
-      {isModalOpen && <MeetingModal /> }
-    </div>
-  )
+  render(){
+    const { allTimeSlots, isModalOpen } = this.props;
+    const amSlots = [];
+    const pmSlots = [];
+
+    allTimeSlots.forEach(slot => {
+      const isAm = slot.id.slice(slot.id.length-2) === "am" ? true : false;
+      isAm ? amSlots.push(slot) : pmSlots.push(slot)
+    });
+
+    return (
+      <div className="AllTimeSlots">
+        <div>
+          <h4>
+            Morning
+          </h4>
+          {this.buildTimeSlots(amSlots)}
+        </div>
+        <div>
+          <h4>
+            Afternoon
+          </h4>
+          {this.buildTimeSlots(pmSlots)}
+        </div>
+        {isModalOpen && <MeetingModal /> }
+      </div>
+    )
+  }
 };
 
 const mapStateToProps = state => {

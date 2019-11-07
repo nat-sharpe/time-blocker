@@ -1,9 +1,9 @@
 import { createStore } from 'redux';
 import rootReducer from '../reducers/reducers';
-import timeSlots from './time-slots-data';
+import data from './time-slots-data';
 
 const initialState = {
-  timeSlots,
+  timeSlots: data.timeSlots,
   meetings: {
     "10am": {
       name: "Nat Sharpe",
