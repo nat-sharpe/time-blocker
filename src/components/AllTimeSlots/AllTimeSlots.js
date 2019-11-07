@@ -12,11 +12,12 @@ class AllTimeSlots extends Component {
   
   componentDidMount(){
     const storedMeetings = window.localStorage.getItem('timeBlocker');
-    const parsedMeetings = JSON.parse(storedMeetings);
+    const parsedMeetings = storedMeetings ? JSON.parse(storedMeetings) : {};
     this.props.submitMeeting(parsedMeetings);
   };
 
   buildTimeSlots = timeSlots => {
+    console.log("buildTimeSlots ", timeSlots);
     return timeSlots.map(slot => <TimeSlot slot={slot} key={slot.id}/>);
   };
 
@@ -24,6 +25,8 @@ class AllTimeSlots extends Component {
     const { allTimeSlots, isModalOpen } = this.props;
     const amSlots = [];
     const pmSlots = [];
+
+    console.log("this.props in all ", this.props );
 
     // Filter time slots into AM and PM arrays
     allTimeSlots.forEach(slot => {

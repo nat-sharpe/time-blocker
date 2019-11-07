@@ -14,6 +14,7 @@ class TimeSlot extends Component {
   render(){
     const { slot, meetings } = this.props;
     // If time slot is blocked by meeting, modifies class
+    console.log("this.props ", this.props);
     const className = "TimeSlot" + (meetings[slot.id] ? " blocked" : "");
     return (
       <div 
