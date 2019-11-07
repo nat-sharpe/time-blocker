@@ -1,5 +1,43 @@
 .NatsTimeBlocker {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
+.main {
+  width: 60%;
+  height: 100%;
+  padding: 0 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(75, 98, 191);
+  color: white;
+  padding: 20px;
+}
+
+.main-title {
+  margin: 0;
+}
+
+.main-link {
+  margin: 0;
+  color: white;
+  text-decoration: none
+}
+
+.main-link:hover {
+  text-decoration: underline
+}
+
+@media only screen and (max-width: 800px) {
+  .main {
+    width: 100%;
+  }
+}

@@ -7,9 +7,37 @@ html, body, #root {
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   height: 100%;
+  background-color: white;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button {
+  background-color: rgb(75, 98, 191);
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  height: 30px;
+  margin: 15px 15px 0 0;
+  border: none;
+  border-radius: 3%;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+input {
+  height: 30px;
+  border-style: solid;
+  border-width: .5px;
+  border-radius: 3%;
+  border-color: rgb(209, 219, 255);
+  margin: 0;
+  font-size: 12pt;
+  padding-left: 8px;
 }

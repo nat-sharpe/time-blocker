@@ -20,7 +20,9 @@ class TimeSlot extends Component {
         className={className} 
         onClick={this.handleClick}
       >
-        {slot.time}
+        <div className="TimeSlot-text">
+          {slot.time}
+        </div>
       </div>
     );
   }

@@ -4,13 +4,20 @@ import { actions } from '../../redux/actions/actions';
 
 import './AllTimeSlots.css';
 import TimeSlot from '../TimeSlot/TimeSlot';
+import Card from '../Card/Card';
 import Modal from '../Modal/Modal';
 import MeetingForm from '../MeetingForm/MeetingForm';
 
 class AllTimeSlots extends Component {
   
+  componentDidMount(){
+    const storedMeetings = window.localStorage.getItem('timeBlocker');
+    const parsedMeetings = JSON.parse(storedMeetings);
+    this.props.submitMeeting(parsedMeetings);
+  };
+
   buildTimeSlots = timeSlots => {
-    return timeSlots.map(slot => <TimeSlot slot={slot} />);
+    return timeSlots.map(slot => <TimeSlot slot={slot} key={slot.id}/>);
   };
 
   render(){
@@ -26,19 +33,9 @@ class AllTimeSlots extends Component {
 
     return (
       <div className="AllTimeSlots">
-        <div>
-          <h4>
-            Morning
-          </h4>
-          {this.buildTimeSlots(amSlots)}
-        </div>
-        <div>
-          <h4>
-            Afternoon
-          </h4>
-          {this.buildTimeSlots(pmSlots)}
-        </div>
-        {isModalOpen && <Modal><MeetingForm /></Modal> }
+        { <Card title="Morning">{this.buildTimeSlots(amSlots)}</Card> }
+        { <Card title="Afternoon">{this.buildTimeSlots(pmSlots)}</Card> }
+        { isModalOpen && <Modal><MeetingForm /></Modal> }
       </div>
     )
   }
@@ -53,7 +50,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  openModal: actions.openModal,
+  submitMeeting: actions.submitMeeting,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllTimeSlots);

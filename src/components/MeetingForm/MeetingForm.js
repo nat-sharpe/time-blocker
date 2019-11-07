@@ -44,15 +44,23 @@ class MeetingForm extends Component {
     })
   };
 
+  closeAndSubmit = meetings => {
+    this.props.submitMeeting(meetings);
+    this.props.closeModal();
+    window.localStorage.setItem('timeBlocker', JSON.stringify(meetings));
+  }
+
   // Saving two empty inputs will delete meeting
   // Saving one empty inputs will stop and alert user
   // Also alerts if phone number is invalid
   handleSubmit = event => {
     event.preventDefault();
     const { name, phone, id } = this.state;
+    const newMeetings = { ...this.props.meetings };
+
     if (!name && !phone) {
-      this.props.cancelMeeting(id);
-      this.props.closeModal();
+      delete newMeetings[id];
+      this.closeAndSubmit(newMeetings);
     } else if (!name) {
       alert("Please enter a name");
     } else {
@@ -60,9 +68,8 @@ class MeetingForm extends Component {
       if (!validPhone) {
         alert("Please enter a valid phone number");
       } else {
-        const meeting = { name, phone: validPhone }
-        this.props.submitMeeting(meeting, id);
-        this.props.closeModal();
+        newMeetings[id] = { name, phone: validPhone }
+        this.closeAndSubmit(newMeetings);
       }
     }
   };
@@ -70,24 +77,21 @@ class MeetingForm extends Component {
   render() {
     const { name, phone, time } = this.state;
     return (
-      <React.Fragment>
-        <div className="close-button-box">
-          <button className="close-button" onClick={this.handleClose}>X</button>
-        </div>
-        <h3>{time}</h3>
+      <div className="MeetingForm">
+        <h4 className="form-title">Time: {time}</h4>
         <form>
-          <label>Name: </label>
-          <div>
+          <div className="input-box">
+            <label>Name: </label>
             <input type="text" value={name} onChange={this.handleNameChange} />
           </div>
-          <label>Phone: </label>
-          <div>
+          <div className="input-box">
+            <label>Phone: </label>
             <input type="tel" value={phone} onChange={this.handlePhoneChange} />
           </div>
           <button type="submit" onClick={this.handleSubmit}>Save</button>
           <button onClick={this.handleClear}>Clear</button>
         </form>
-      </React.Fragment>
+      </div>
     )
   };
 };
@@ -102,7 +106,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   closeModal: actions.closeModal,
   submitMeeting: actions.submitMeeting,
-  cancelMeeting: actions.cancelMeeting,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingForm);

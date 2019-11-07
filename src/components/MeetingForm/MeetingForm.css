@@ -1,0 +1,25 @@
+.MeetingForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: top;
+  padding: 0 50px 0 50px;
+}
+
+.form-title {
+  margin: 20px 0 20px 0;
+}
+
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 220px;
+  margin: 5px 0 10px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .MeetingForm{
+    padding: 0 5px 0 10px;
+  }
+}

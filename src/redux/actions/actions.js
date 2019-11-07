@@ -10,8 +10,8 @@ export const actions = {
   closeModal: () => {
     return {type: CLOSE_MODAL}
   },
-  submitMeeting: (meeting, id) => {
-    return {type: SUBMIT_MEETING, meeting, id}
+  submitMeeting: (meetings) => {
+    return {type: SUBMIT_MEETING, meetings}
   },
   cancelMeeting: (id) => {
     return {type: CANCEL_MEETING, id}

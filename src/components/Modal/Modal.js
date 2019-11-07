@@ -20,7 +20,10 @@ const Modal = props => {
       id="modal-background"
       onClick={handleClick}
     >
-      <div className="modal-box">
+      <div className="Modal-box">
+        <div className="close-button-box">
+          <button className="close-button" onClick={props.closeModal}>X</button>
+        </div>
         {props.children}
       </div>
     </div>
