@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import store from './redux/store/store';
-import TimeBlocker from './components/TimeBlocker/TimeBlocker'
+import TimeBlocker from './TimeBlocker/TimeBlocker';
 
 ReactDOM.render(
   <Provider store={store}>

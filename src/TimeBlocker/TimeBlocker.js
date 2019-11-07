@@ -1,8 +1,8 @@
 import React from 'react';
 import './TimeBlocker.css';
-import AllTimeSlots from '../AllTimeSlots/AllTimeSlots'
+import AllTimeSlots from '../components/AllTimeSlots/AllTimeSlots'
 
-function TimeBlocker() {
+const TimeBlocker = () => {
   return (
     <div className="TimeBlocker">
       <header className="TimeBlocker-header">
