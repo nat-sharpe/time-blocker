@@ -5,20 +5,20 @@ import { actions } from '../../redux/actions/actions';
 
 
 const TimeSlot = props => {
-  const { time, id } = props.slot;
+  const { slot } = props;
 
   const handleClick = e => {
     e.preventDefault();
-    props.openModal(id);
+    props.openModal(slot);
   };
 
   return (
     <div 
       className="TimeSlot" 
-      name={id}
+      name={slot.id}
       onClick={handleClick}
     >
-      {time}
+      {slot.time}
     </div>
   );
 }

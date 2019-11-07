@@ -6,7 +6,7 @@ const rootReducer = (state = {}, action) => {
       return {
         ...state,
         isModalOpen: true,
-        selectedId: action.id,
+        selectedSlot: action.slot,
       };
     case CLOSE_MODAL:
       return {

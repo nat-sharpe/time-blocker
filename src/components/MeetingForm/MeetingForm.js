@@ -6,22 +6,29 @@ class MeetingForm extends Component {
 
   constructor(props) {
     super(props);
+    const { meetings, selectedSlot } = props;
+    const { time, id } = selectedSlot;
+    let name = "";
+    let phone = "";
+
+    if (meetings[id]) {
+      name = meetings[id].name
+      phone = meetings[id].phone
+    }
 
     this.state = {
-      name: '',
-      phone: '',
+      name,
+      phone,
+      time,
     };
   }
 
   handleChange = (e) => {
-    console.log(this.state);
     this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
-    const { meetings, selectedId } = this.props;
-    const { time, name, phone } = meetings[selectedId] ? meetings[selectedId] : "";
-
+    const { name, phone, time } = this.state;
     return (
       <React.Fragment>
         <h3>{ time }</h3>
@@ -45,7 +52,7 @@ class MeetingForm extends Component {
 const mapStateToProps = state => {
   return {
     meetings: state.meetings,
-    selectedId: state.selectedId,
+    selectedSlot: state.selectedSlot,
   };
 };
 
