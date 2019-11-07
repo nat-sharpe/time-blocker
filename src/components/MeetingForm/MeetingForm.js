@@ -14,41 +14,84 @@ class MeetingForm extends Component {
       name: meetings[id] ? meetings[id].name : "",
       phone: meetings[id] ? meetings[id].phone : "",
       time,
+      id,
     };
-  }
-
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleClose = e => {
-    e.preventDefault();
+  formatPhoneNumber = phone => {
+    const cleaned = ('' + phone).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+    }
+    return null
+  }
+
+  validateForm = (name, phone) => {
+    const alertMessage = "Please enter a ";
+    if (name && phone) {
+      const formattedPhone = this.formatPhoneNumber(phone);
+      if (formattedPhone) {
+        return formattedPhone;
+      }
+      alert("Phone number is invalid");
+      return "";
+    }
+    const phoneError = !phone ? "phone number" : "";
+    const nameError = !name ? "name" : "";
+    const bothError = !name && !phone ? " and " : "";
+
+    alert(alertMessage + nameError + bothError + phoneError)
+    return "";
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleClose = event => {
+    event.preventDefault();
     this.props.closeModal();
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { name, phone, id } = this.state;
+    const validPhone = this.validateForm(name, phone);
+    if (validPhone) {
+      const meeting = { name, phone: validPhone }
+      this.props.submitMeeting(meeting, id);
+    };
   };
 
   render() {
     const { name, phone, time } = this.state;
     return (
       <React.Fragment>
-        <div>
-          <button onClick={this.handleClose}>X</button>
+        <div className="close-button-box">
+          <button className="close-button" onClick={this.handleClose}>X</button>
         </div>
         <h3>{time}</h3>
         <form>
-          <p>Name: </p>
+          <div>Name: </div>
           <div>
-            <input type="text" name="name" value={name} onChange={this.handleChange} />
+            <input type="text" name="name" value={name} 
+              onChange={this.handleChange}
+              required
+            />
           </div>
-          <p>Phone: </p>
+          <div>Phone: </div>
           <div>
-            <input name="phone" value={phone} onChange={this.handleChange}></input>
+            <input type="tel" name="phone" value={phone}
+              onChange={this.handleChange}
+              required
+            />
           </div>
-          <button type="submit">Save</button>
+          <button type="submit" onClick={this.handleSubmit}>Save</button>
         </form>
       </React.Fragment>
     )
-  }
-
+  };
 };
 
 const mapStateToProps = state => {
@@ -60,6 +103,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   closeModal: actions.closeModal,
+  submitMeeting: actions.submitMeeting,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetingForm);

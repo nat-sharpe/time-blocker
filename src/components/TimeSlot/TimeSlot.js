@@ -5,16 +5,18 @@ import { actions } from '../../redux/actions/actions';
 
 
 const TimeSlot = props => {
-  const { slot } = props;
+  const { slot, meetings } = props;
 
-  const handleClick = e => {
-    e.preventDefault();
+  const handleClick = event => {
+    event.preventDefault();
     props.openModal(slot);
   };
 
+  const className = "TimeSlot" + (meetings[slot.id] ? " blocked" : "");
+
   return (
     <div 
-      className="TimeSlot" 
+      className={className}
       name={slot.id}
       onClick={handleClick}
     >
@@ -23,8 +25,14 @@ const TimeSlot = props => {
   );
 }
 
+const mapStateToProps = state => {
+  return {
+    meetings: state.meetings,
+  };
+};
+
 const mapDispatchToProps = {
   openModal: actions.openModal,
 };
 
-export default connect(null, mapDispatchToProps)(TimeSlot);
+export default connect(mapStateToProps, mapDispatchToProps)(TimeSlot);

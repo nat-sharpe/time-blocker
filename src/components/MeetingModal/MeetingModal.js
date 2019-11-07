@@ -7,9 +7,9 @@ import MeetingForm from '../MeetingForm/MeetingForm';
 
 const MeetingModal = props => {
 
-  const handleClick = e => {
-    e.preventDefault();
-    if (e.target.id === "modal-background") {
+  const handleClick = event => {
+    event.preventDefault();
+    if (event.target.id === "modal-background") {
       props.closeModal();
     }
   };

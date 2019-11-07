@@ -8,10 +8,7 @@ import MeetingModal from '../MeetingModal/MeetingModal';
 const AllTimeSlots = props => {
   
   const { allTimeSlots, isModalOpen } = props;
-
-  const timeSlotItems = allTimeSlots.map(slot => {
-    return <TimeSlot slot={slot} key={slot.id}/>
-  });
+  const timeSlotItems = allTimeSlots.map(slot => <TimeSlot slot={slot} key={slot.id}/>);
 
   return (
     <div className="AllTimeSlots">
