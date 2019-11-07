@@ -17,7 +17,6 @@ class AllTimeSlots extends Component {
   };
 
   buildTimeSlots = timeSlots => {
-    console.log("buildTimeSlots ", timeSlots);
     return timeSlots.map(slot => <TimeSlot slot={slot} key={slot.id}/>);
   };
 
@@ -25,8 +24,6 @@ class AllTimeSlots extends Component {
     const { allTimeSlots, isModalOpen } = this.props;
     const amSlots = [];
     const pmSlots = [];
-
-    console.log("this.props in all ", this.props );
 
     // Filter time slots into AM and PM arrays
     allTimeSlots.forEach(slot => {
