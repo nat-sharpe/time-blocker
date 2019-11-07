@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './MeetingModal.css';
+import './Modal.css';
 import { actions } from '../../redux/actions/actions';
-import MeetingForm from '../MeetingForm/MeetingForm';
 
 
-const MeetingModal = props => {
+const Modal = props => {
 
   const handleClick = event => {
     event.preventDefault();
@@ -16,12 +15,12 @@ const MeetingModal = props => {
 
   return (
     <div 
-      className="MeetingModal" 
+      className="Modal" 
       id="modal-background"
       onClick={handleClick}
     >
       <div className="modal-box">
-        <MeetingForm />
+        {props.children}
       </div>
     </div>
   );
@@ -31,4 +30,4 @@ const mapDispatchToProps = {
   closeModal: actions.closeModal,
 };
 
-export default connect(null, mapDispatchToProps)(MeetingModal);
+export default connect(null, mapDispatchToProps)(Modal);

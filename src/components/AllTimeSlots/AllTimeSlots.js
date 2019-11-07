@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './AllTimeSlots.css';
+import { actions } from '../../redux/actions/actions';
 
+import './AllTimeSlots.css';
 import TimeSlot from '../TimeSlot/TimeSlot';
-import MeetingModal from '../MeetingModal/MeetingModal';
+import Modal from '../Modal/Modal';
+import MeetingForm from '../MeetingForm/MeetingForm';
 
 class AllTimeSlots extends Component {
   
-  buildTimeSlots = (timeSlots) => {
-    return timeSlots.map(slot => <TimeSlot slot={slot} key={slot.id}/>)
+  buildTimeSlots = timeSlots => {
+    return timeSlots.map(slot => <TimeSlot slot={slot} />);
   };
 
   render(){
@@ -35,7 +37,7 @@ class AllTimeSlots extends Component {
           </h4>
           {this.buildTimeSlots(pmSlots)}
         </div>
-        {isModalOpen && <MeetingModal /> }
+        {isModalOpen && <Modal><MeetingForm /></Modal> }
       </div>
     )
   }
@@ -45,7 +47,12 @@ const mapStateToProps = state => {
   return {
     allTimeSlots: state.timeSlots,
     isModalOpen: state.isModalOpen,
+    meetings: state.meetings,
   };
 };
 
-export default connect(mapStateToProps)(AllTimeSlots);
+const mapDispatchToProps = {
+  openModal: actions.openModal,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllTimeSlots);

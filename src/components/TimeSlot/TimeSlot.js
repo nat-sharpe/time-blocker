@@ -1,28 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './TimeSlot.css';
 import { actions } from '../../redux/actions/actions';
+import LongButton from '../LongButton/LongButton';
+import './TimeSlot.css';
 
 
-const TimeSlot = props => {
-  const { slot, meetings } = props;
+class TimeSlot extends Component {
 
-  const handleClick = event => {
+  handleClick = event => {
     event.preventDefault();
-    props.openModal(slot);
+    this.props.openModal(this.props.slot);
   };
 
-  const className = "TimeSlot" + (meetings[slot.id] ? " blocked" : "");
-
-  return (
-    <div 
-      className={className}
-      name={slot.id}
-      onClick={handleClick}
-    >
-      {slot.time}
-    </div>
-  );
+  render(){
+    const { slot, meetings } = this.props;
+    const className = "TimeSlot" + (meetings[slot.id] ? " blocked" : "");
+    return (
+      <LongButton 
+        handleClick={this.handleClick} 
+        text={slot.time} 
+        className={className} 
+        key={slot.id} 
+      />
+    );
+  }
 }
 
 const mapStateToProps = state => {
