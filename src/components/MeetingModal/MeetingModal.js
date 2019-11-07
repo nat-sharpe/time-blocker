@@ -9,7 +9,7 @@ const MeetingModal = props => {
 
   const handleClick = e => {
     e.preventDefault();
-    if (e.target.id !== "modal-box") {
+    if (e.target.id === "modal-background") {
       props.closeModal();
     }
   };
@@ -17,9 +17,10 @@ const MeetingModal = props => {
   return (
     <div 
       className="MeetingModal" 
+      id="modal-background"
       onClick={handleClick}
     >
-      <div className="modal-box" id="modal-box">
+      <div className="modal-box">
         <MeetingForm />
       </div>
     </div>
