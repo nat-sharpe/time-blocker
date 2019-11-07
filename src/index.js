@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import store from './redux/store/store';
-import TimeBlocker from './TimeBlocker/TimeBlocker';
+import NatsTimeBlocker from './NatsTimeBlocker';
 
 ReactDOM.render(
   <Provider store={store}>
-    <TimeBlocker />
+    <NatsTimeBlocker />
   </Provider>, 
   document.getElementById('root')
 );

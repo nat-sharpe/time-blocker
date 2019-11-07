@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from '../../redux/actions/actions';
-import LongButton from '../LongButton/LongButton';
 import './TimeSlot.css';
 
 
@@ -14,14 +13,15 @@ class TimeSlot extends Component {
 
   render(){
     const { slot, meetings } = this.props;
+    // If time slot is blocked by meeting, modifies class
     const className = "TimeSlot" + (meetings[slot.id] ? " blocked" : "");
     return (
-      <LongButton 
-        handleClick={this.handleClick} 
-        text={slot.time} 
+      <div 
         className={className} 
-        key={slot.id} 
-      />
+        onClick={this.handleClick}
+      >
+        {slot.time}
+      </div>
     );
   }
 }

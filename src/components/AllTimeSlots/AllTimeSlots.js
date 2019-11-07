@@ -18,6 +18,7 @@ class AllTimeSlots extends Component {
     const amSlots = [];
     const pmSlots = [];
 
+    // Filter time slots into AM and PM arrays
     allTimeSlots.forEach(slot => {
       const isAm = slot.id.slice(slot.id.length-2) === "am" ? true : false;
       isAm ? amSlots.push(slot) : pmSlots.push(slot)

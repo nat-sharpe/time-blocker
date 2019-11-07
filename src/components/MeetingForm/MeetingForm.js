@@ -10,7 +10,8 @@ class MeetingForm extends Component {
     super(props);
     const { meetings, selectedSlot } = props;
     const { time, id } = selectedSlot;
-  
+    
+    // Checks meeting object for matching name and phone
     this.state = {
       name: meetings[id] ? meetings[id].name : "",
       phone: meetings[id] ? meetings[id].phone : "",
@@ -23,6 +24,7 @@ class MeetingForm extends Component {
     this.setState({ name: event.target.value });
   };
 
+  // Validates phone number as user types
   handlePhoneChange = event => {
     const validPhone = formatPhoneNumber(event.target.value);
     const phone = validPhone ? validPhone : event.target.value;
@@ -42,6 +44,9 @@ class MeetingForm extends Component {
     })
   };
 
+  // Saving two empty inputs will delete meeting
+  // Saving one empty inputs will stop and alert user
+  // Also alerts if phone number is invalid
   handleSubmit = event => {
     event.preventDefault();
     const { name, phone, id } = this.state;

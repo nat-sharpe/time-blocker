@@ -6,6 +6,7 @@ import { actions } from '../../redux/actions/actions';
 
 const Modal = props => {
 
+  // Closes modal if background is clicked
   const handleClick = event => {
     event.preventDefault();
     if (event.target.id === "modal-background") {
