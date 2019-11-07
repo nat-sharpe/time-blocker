@@ -1,6 +1,8 @@
 ## Time Blocker
 A simple app for scheduling appointments. Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Check out the [Live App](http://timeblocker.netlify.com)
+
 
 ## Available Scripts
 
